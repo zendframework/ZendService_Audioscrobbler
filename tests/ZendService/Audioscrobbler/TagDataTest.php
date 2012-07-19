@@ -8,7 +8,7 @@
  * @package   Zend_Service
  */
 
-namespace ZendTest\Service\Audioscrobbler;
+namespace ZendServiceTest\Audioscrobbler;
 
 /**
  * @category   Zend

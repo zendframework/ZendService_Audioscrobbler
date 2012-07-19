@@ -8,7 +8,7 @@
  * @package   Zend_Service
  */
 
-namespace Zend\Service\Audioscrobbler;
+namespace ZendService\Audioscrobbler;
 
 use Zend\Http\Client as HttpClient;
 

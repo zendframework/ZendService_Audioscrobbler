@@ -8,9 +8,9 @@
  * @package   Zend_Service
  */
 
-namespace ZendTest\Service\Audioscrobbler;
+namespace ZendServiceTest\Audioscrobbler;
 
-use Zend\Service\Audioscrobbler;
+use ZendService\Audioscrobbler;
 
 /**
  * @category   Zend
@@ -23,7 +23,7 @@ class AudioscrobblerTest extends AudioscrobblerTestCase
 {
     public function testRequestThrowsRuntimeExceptionWithNoUserError()
     {
-        $this->setExpectedException('Zend\Service\Audioscrobbler\Exception\RuntimeException', 'No user exists with this name');
+        $this->setExpectedException('ZendService\Audioscrobbler\Exception\RuntimeException', 'No user exists with this name');
 
         $this->setAudioscrobblerResponse(self::readTestResponse('errorNoUserExists'));
         $as = $this->getAudioscrobblerService();
@@ -34,7 +34,7 @@ class AudioscrobblerTest extends AudioscrobblerTestCase
 
     public function testRequestThrowsRuntimeExceptionWithoutSuccessfulResponse()
     {
-        $this->setExpectedException('Zend\Service\Audioscrobbler\Exception\RuntimeException', '404');
+        $this->setExpectedException('ZendService\Audioscrobbler\Exception\RuntimeException', '404');
 
         $this->setAudioscrobblerResponse(self::readTestResponse('errorResponseStatusError'));
         $as = $this->getAudioscrobblerService();
@@ -60,7 +60,7 @@ class AudioscrobblerTest extends AudioscrobblerTestCase
      */
     public function testUnknownMethodViaCallInterceptThrowsException()
     {
-        $this->setExpectedException("Zend\Service\Audioscrobbler\Exception\BadMethodCallException", 'does not exist in class');
+        $this->setExpectedException("ZendService\Audioscrobbler\Exception\BadMethodCallException", 'does not exist in class');
 
         $as = new Audioscrobbler\Audioscrobbler();
         $as->someInvalidMethod();
@@ -71,7 +71,7 @@ class AudioscrobblerTest extends AudioscrobblerTestCase
      */
     public function testCallInterceptMethodsRequireExactlyOneParameterAndThrowExceptionOtherwise()
     {
-        $this->setExpectedException("Zend\Service\Audioscrobbler\Exception\InvalidArgumentException", 'A value is required for setting a parameter field');
+        $this->setExpectedException("ZendService\Audioscrobbler\Exception\InvalidArgumentException", 'A value is required for setting a parameter field');
 
         $as = new Audioscrobbler\Audioscrobbler();
         $as->setUser();

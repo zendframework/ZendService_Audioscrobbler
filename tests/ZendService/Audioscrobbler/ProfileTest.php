@@ -8,9 +8,9 @@
  * @package   Zend_Service
  */
 
-namespace ZendTest\Service\Audioscrobbler;
+namespace ZendServiceTest\Audioscrobbler;
 
-use Zend\Service\Audioscrobbler;
+use ZendService\Audioscrobbler;
 
 /**
  * @category   Zend
@@ -60,7 +60,7 @@ class ProfileTest extends AudioscrobblerTestCase
         $as = new Audioscrobbler();
         $as->set('user', 'kljadsfjllkj');
 
-        $this->setExpectedException('Zend\Service\Audioscrobbler\Exception\RuntimeException', 'xxx');
+        $this->setExpectedException('ZendService\Audioscrobbler\Exception\RuntimeException', 'xxx');
         $response = $as->userGetProfileInformation();
     }
 
@@ -225,7 +225,7 @@ class ProfileTest extends AudioscrobblerTestCase
      */
     public function testBadUserGetTopTagsForArtist()
     {
-        $this->setExpectedException('Zend\Service\Audioscrobbler\Exception\RuntimeException', 'SimpleXML');
+        $this->setExpectedException('ZendService\Audioscrobbler\Exception\RuntimeException', 'SimpleXML');
 
         $testingResponse = "HTTP/1.1 200 OK\r\n"
                          . "Content-type: text/xml\r\n"

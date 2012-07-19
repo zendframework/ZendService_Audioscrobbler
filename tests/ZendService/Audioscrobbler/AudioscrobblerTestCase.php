@@ -8,10 +8,10 @@
  * @package   Zend_Service
  */
 
-namespace ZendTest\Service\Audioscrobbler;
+namespace ZendServiceTest\Audioscrobbler;
 
 use Zend\Http;
-use Zend\Service\Audioscrobbler;
+use ZendService\Audioscrobbler;
 
 /**
  * @category   Zend

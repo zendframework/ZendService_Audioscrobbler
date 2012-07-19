@@ -8,7 +8,7 @@
  * @package   Zend_Service
  */
 
-namespace Zend\Service\Audioscrobbler\Exception;
+namespace ZendService\Audioscrobbler\Exception;
 
 /**
  * @category   Zend
