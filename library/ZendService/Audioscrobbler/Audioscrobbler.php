@@ -118,7 +118,7 @@ class Audioscrobbler
         $response     = $this->getHttpClient()->send();
         $responseBody = $response->getBody();
 
-        if (strpos($responseBody, '/No such path/')) {
+        if (strpos($responseBody, 'No such path') !== false) {
             throw new Exception\RuntimeException('Could not find: ' . $this->getHttpClient()->getUri());
         } elseif (strpos($responseBody, 'No user exists with this name')) {
             throw new Exception\RuntimeException('No user exists with this name');
