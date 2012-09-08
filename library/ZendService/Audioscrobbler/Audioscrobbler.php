@@ -120,7 +120,7 @@ class Audioscrobbler
 
         if (strpos($responseBody, '/No such path/')) {
             throw new Exception\RuntimeException('Could not find: ' . $this->getHttpClient()->getUri());
-        } elseif (strpos($responseBody, 'No user exists with this name')) {
+        } elseif (strpos($responseBody, 'No user exists with this name') !== false) {
             throw new Exception\RuntimeException('No user exists with this name');
         } elseif (!$response->isSuccess()) {
             throw new Exception\RuntimeException('The web service ' . $this->getHttpClient()->getUri() . ' returned the following status code: ' . $response->getStatusCode());
