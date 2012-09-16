@@ -128,7 +128,7 @@ class Audioscrobbler
 
         set_error_handler(array($this, 'errorHandler'));
 
-        if (!$simpleXmlElementResponse = simplexml_load_string($responseBody)) {
+        if (!$simpleXmlElementResponse = simplexml_load_string(str_replace('&', '&amp;', $responseBody))) {
             restore_error_handler();
             $exception = new Exception\RuntimeException('Response failed to load with SimpleXML');
             $exception->error    = $this->error;
