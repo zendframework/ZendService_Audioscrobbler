@@ -118,9 +118,9 @@ class Audioscrobbler
         $response     = $this->getHttpClient()->send();
         $responseBody = $response->getBody();
 
-        if (strpos($responseBody, '/No such path/')) {
+        if (strpos($responseBody, 'No such path') !== false) {
             throw new Exception\RuntimeException('Could not find: ' . $this->getHttpClient()->getUri());
-        } elseif (strpos($responseBody, 'No user exists with this name')) {
+        } elseif (strpos($responseBody, 'No user exists with this name') !== false) {
             throw new Exception\RuntimeException('No user exists with this name');
         } elseif (!$response->isSuccess()) {
             throw new Exception\RuntimeException('The web service ' . $this->getHttpClient()->getUri() . ' returned the following status code: ' . $response->getStatusCode());
@@ -128,7 +128,7 @@ class Audioscrobbler
 
         set_error_handler(array($this, 'errorHandler'));
 
-        if (!$simpleXmlElementResponse = simplexml_load_string($responseBody)) {
+        if (!$simpleXmlElementResponse = simplexml_load_string(str_replace('&', '&amp;', $responseBody))) {
             restore_error_handler();
             $exception = new Exception\RuntimeException('Response failed to load with SimpleXML');
             $exception->error    = $this->error;

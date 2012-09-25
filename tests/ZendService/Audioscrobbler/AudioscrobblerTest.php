@@ -81,4 +81,36 @@ class AudioscrobblerTest extends AudioscrobblerTestCase
     {
         return file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . $file);
     }
+
+    /**
+     * There is a bug that if a url contains the & in the link you end up with
+     *
+     * "simplexml_load_string(): Entity: line 297: parser error : xmlParseEntityRef: no name"
+     *
+     * Replacing the & with &amp; seems to fix this error.
+     */
+    public function testGetInfoCanHandleAmpersandsInUrlLinks()
+    {
+        $test_response = "HTTP/1.1 200 OK\r\nContent-type: text/xml\r\n\r\n" .
+            '<?xml version="1.0" encoding="UTF-8"?>
+            <toptracks user="benmatselby" type="overall">
+                <track>
+                    <artist mbid="cd71e6e9-42bb-4a1a-b5ce-17f41682b3e2">Sam Sparro</artist>
+                    <name>Black &amp; Gold</name>
+                    <mbid>1496da59-7c53-49ec-b2ee-7f9c04fb699d</mbid>
+                    <playcount>54</playcount>
+                    <rank>33</rank>
+                    <url>http://www.last.fm/music/Sam+Sparro/_/Black+&+Gold</url>
+                </track>
+            </toptracks>';
+
+        $this->setAudioscrobblerResponse($test_response);
+
+        $as = $this->getAudioscrobblerService();
+        $as->set('user', 'benmatselby');
+        $response = $as->userGetTopTracks();
+        $track = $response->track[0];
+
+        $this->assertEquals((string)$track->url, 'http://www.last.fm/music/Sam+Sparro/_/Black+&+Gold');
+    }
 }
