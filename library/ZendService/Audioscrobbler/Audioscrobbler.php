@@ -11,6 +11,7 @@
 namespace ZendService\Audioscrobbler;
 
 use Zend\Http\Client as HttpClient;
+use ZendXml\Security as XmlSecurity;
 
 /**
  * @category   Zend
@@ -128,7 +129,8 @@ class Audioscrobbler
 
         set_error_handler(array($this, 'errorHandler'));
 
-        if (!$simpleXmlElementResponse = simplexml_load_string(str_replace('&', '&amp;', $responseBody))) {
+        $simpleXmlElementResponse = XmlSecurity::scan(str_replace('&', '&amp;', $responseBody));
+        if (!$simpleXmlElementResponse) {
             restore_error_handler();
             $exception = new Exception\RuntimeException('Response failed to load with SimpleXML');
             $exception->error    = $this->error;
